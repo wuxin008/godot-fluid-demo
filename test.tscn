@@ -1,0 +1,384 @@
+[gd_scene load_steps=24 format=3 uid="uid://bo5sv4e5gv8rc"]
+
+[ext_resource type="Texture2D" uid="uid://ddp8ek6rswwmc" path="res://kenney/smoke_05.png" id="3_pmhp8"]
+[ext_resource type="Script" path="res://tester.gd" id="18"]
+
+[sub_resource type="ProceduralSkyMaterial" id="9"]
+
+[sub_resource type="Sky" id="10"]
+sky_material = SubResource("9")
+
+[sub_resource type="Environment" id="11"]
+background_mode = 2
+sky = SubResource("10")
+
+[sub_resource type="Animation" id="Animation_qdnt6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Testers/CPUParticlesForceField/CPUParticles3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Testers/CPUParticlesForceField/CPUParticles3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1, 0)]
+}
+
+[sub_resource type="Animation" id="12"]
+resource_name = "move"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Testers/CPUParticlesForceField/CPUParticles3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 3.14159, 0), Vector3(0, 6.28319, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Testers/CPUParticlesForceField/CPUParticles3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector3(0, 1, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ecfcr"]
+_data = {
+"RESET": SubResource("Animation_qdnt6"),
+"move": SubResource("12")
+}
+
+[sub_resource type="Gradient" id="Gradient_ywyk1"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4rekb"]
+gradient = SubResource("Gradient_ywyk1")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0.01)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lmeg8"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1.5, 3, 0.7)
+albedo_texture = SubResource("GradientTexture2D_4rekb")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+proximity_fade_enabled = true
+proximity_fade_distance = 2.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_x46k4"]
+material = SubResource("StandardMaterial3D_lmeg8")
+size = Vector2(0.1, 0.1)
+
+[sub_resource type="Gradient" id="Gradient_drqcv"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.289474, 0.542105, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.92549, 0.235294, 0.317647, 1, 0.564706, 1, 1, 1, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cgumr"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("3_pmhp8")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+proximity_fade_enabled = true
+proximity_fade_distance = 0.5
+
+[sub_resource type="QuadMesh" id="QuadMesh_0jly8"]
+material = SubResource("StandardMaterial3D_cgumr")
+
+[sub_resource type="Gradient" id="Gradient_or8rt"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.131579, 0.184211, 0.321053, 0.473684, 0.752632, 1)
+colors = PackedColorArray(0.25098, 0.25098, 0.25098, 1, 1, 0.802991, 0.664426, 1, 1, 0.682353, 0, 1, 1, 0.601, 0.37, 1, 1, 0.25, 0.1, 0.447059, 0, 0, 0, 0.184314, 0.25098, 0.25098, 0.25098, 0)
+
+[sub_resource type="Gradient" id="Gradient_827lf"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.01875, 0.0722892, 0.433735, 0.716867, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.686275, 0.188235, 0, 1, 1, 0.517647, 0.0784314, 1, 1, 0.0784314, 0, 0.447059, 0.25098, 0.25098, 0.25098, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2374g"]
+gradient = SubResource("Gradient_827lf")
+
+[sub_resource type="Curve" id="Curve_3eqrx"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_3g7oh"]
+curve = SubResource("Curve_3eqrx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticlesMaterial_wcmum"]
+emission_shape = 3
+emission_box_extents = Vector3(0.5, 0, 0.5)
+direction = Vector3(0, 1, 0)
+spread = 3.5
+initial_velocity_min = 1.0
+initial_velocity_max = 4.0
+angular_velocity_max = 360.0
+gravity = Vector3(0, 0, 0)
+damping_min = 2.0
+damping_max = 2.0
+scale_min = 0.1
+scale_max = 0.8
+scale_curve = SubResource("CurveTexture_3g7oh")
+color = Color(4, 4, 4, 1)
+color_ramp = SubResource("GradientTexture1D_2374g")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dod7h"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("3_pmhp8")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+proximity_fade_enabled = true
+proximity_fade_distance = 0.3
+
+[sub_resource type="QuadMesh" id="QuadMesh_783ir"]
+material = SubResource("StandardMaterial3D_dod7h")
+
+[node name="WorldEnvironment" type="WorldEnvironment"]
+environment = SubResource("11")
+script = ExtResource("18")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ecfcr")
+}
+autoplay = "move"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.668269, 0.661498, -0.340349, 0.5619, 0.748663, 0.351813, 0.48753, 0.0438635, -0.872004, 3.9506, 3.39961, 3.54442)
+shadow_enabled = true
+shadow_bias = 0.04
+directional_shadow_mode = 0
+directional_shadow_fade_start = 0.9
+directional_shadow_max_distance = 15.0
+
+[node name="CameraHolder" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.125, 26)
+
+[node name="RotationX" type="Node3D" parent="CameraHolder"]
+
+[node name="Camera3D" type="Camera3D" parent="CameraHolder/RotationX"]
+fov = 70.0
+
+[node name="Testers" type="Node3D" parent="."]
+
+[node name="CPUParticlesForceField" type="Node3D" parent="Testers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 26)
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="Testers/CPUParticlesForceField"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+amount = 750
+lifetime = 5.0
+preprocess = 5.0
+local_coords = true
+mesh = SubResource("QuadMesh_x46k4")
+emission_shape = 3
+emission_box_extents = Vector3(0.05, 1, 1)
+gravity = Vector3(0, 0.05, 0)
+tangential_accel_min = -0.04
+tangential_accel_max = 0.04
+scale_amount_min = 0.1
+scale_amount_max = 1.5
+color_ramp = SubResource("Gradient_drqcv")
+
+[node name="CPUParticlesExplosion" type="Node3D" parent="Testers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 22)
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="Testers/CPUParticlesExplosion"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+amount = 400
+lifetime = 1.3
+explosiveness = 1.0
+mesh = SubResource("QuadMesh_0jly8")
+emission_shape = 2
+emission_sphere_radius = 0.25
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 4.0
+initial_velocity_max = 4.0
+angular_velocity_max = 720.0
+damping_min = 3.25
+damping_max = 3.25
+angle_max = 360.0
+scale_amount_min = 0.0
+color = Color(4, 4, 4, 1)
+color_ramp = SubResource("Gradient_or8rt")
+
+[node name="Decal4" type="Decal" parent="Testers/CPUParticlesExplosion"]
+size = Vector3(5, 0.02, 5)
+texture_albedo = ExtResource("3_pmhp8")
+modulate = Color(0, 0, 0, 1)
+
+[node name="Decal5" type="Decal" parent="Testers/CPUParticlesExplosion"]
+transform = Transform3D(0.562646, 0, -0.826698, 0, 1, 0, 0.826698, 0, 0.562646, 0, 0, 0)
+size = Vector3(5, 0.02, 5)
+texture_albedo = ExtResource("3_pmhp8")
+modulate = Color(0, 0, 0, 1)
+
+[node name="Decal6" type="Decal" parent="Testers/CPUParticlesExplosion"]
+transform = Transform3D(-0.481494, 0, -0.87645, 0, 1, 0, 0.87645, 0, -0.481494, 0, 0, 0)
+size = Vector3(5, 0.02, 5)
+texture_albedo = ExtResource("3_pmhp8")
+modulate = Color(0, 0, 0, 1)
+
+[node name="GPUParticlesFire" type="Node3D" parent="Testers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Testers/GPUParticlesFire"]
+amount = 125
+fixed_fps = 0
+interpolate = false
+process_material = SubResource("ParticlesMaterial_wcmum")
+draw_pass_1 = SubResource("QuadMesh_783ir")
+
+[node name="Decal" type="Decal" parent="Testers/GPUParticlesFire"]
+size = Vector3(2, 0.02, 2)
+texture_albedo = ExtResource("3_pmhp8")
+modulate = Color(0, 0, 0, 1)
+
+[node name="Decal2" type="Decal" parent="Testers/GPUParticlesFire"]
+transform = Transform3D(0.562646, 0, -0.826698, 0, 1, 0, 0.826698, 0, 0.562646, 0, 0, 0)
+size = Vector3(3, 0.02, 2.2)
+texture_albedo = ExtResource("3_pmhp8")
+modulate = Color(0, 0, 0, 1)
+
+[node name="Decal3" type="Decal" parent="Testers/GPUParticlesFire"]
+transform = Transform3D(-0.481494, 0, -0.87645, 0, 1, 0, 0.87645, 0, -0.481494, 0, 0, 0)
+size = Vector3(3.2, 0.02, 2.6)
+texture_albedo = ExtResource("3_pmhp8")
+modulate = Color(0, 0, 0, 1)
+
+[node name="TestName" type="Label" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -192.0
+offset_top = -58.0
+offset_right = 192.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+
+[node name="Previous" type="Button" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -55.0
+offset_right = 135.0
+offset_bottom = -24.0
+grow_vertical = 0
+text = "«  Previous"
+
+[node name="Next" type="Button" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -107.0
+offset_top = -55.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Next  »"
+
+[node name="TextEdit" type="Label" parent="."]
+offset_left = 13.0
+offset_top = 12.0
+offset_right = 251.0
+offset_bottom = 159.0
+text = "FPS: 100
+引擎: 默认
+粒子数量: 10000
+粒子密度: 100
+时间步长: 10"
+
+[node name="TextEdit" type="Label" parent="TextEdit"]
+layout_mode = 0
+offset_left = 930.0
+offset_top = 4.0
+offset_right = 999.0
+offset_bottom = 169.0
+text = "仿真算法
+
+粒子尺寸
+
+场景导入
+"
+
+[node name="OptionButton" type="OptionButton" parent="."]
+offset_left = 1022.0
+offset_top = 10.0
+offset_right = 1129.0
+offset_bottom = 47.0
+selected = 0
+item_count = 3
+popup/item_0/text = "PBF"
+popup/item_1/text = "LBM"
+popup/item_1/id = 1
+popup/item_2/text = "MPM"
+popup/item_2/id = 2
+
+[node name="HSlider" type="HSlider" parent="."]
+offset_left = 1020.0
+offset_top = 58.0
+offset_right = 1130.0
+offset_bottom = 102.0
+
+[node name="Button" type="Button" parent="."]
+offset_left = 1024.0
+offset_top = 112.0
+offset_right = 1131.0
+offset_bottom = 143.0
+text = "默认"
+
+[connection signal="pressed" from="Previous" to="." method="_on_previous_pressed"]
+[connection signal="pressed" from="Next" to="." method="_on_next_pressed"]
