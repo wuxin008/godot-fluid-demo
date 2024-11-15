@@ -1,0 +1,161 @@
+[gd_scene load_steps=7 format=3 uid="uid://baaebptsoorum"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_lp3pp"]
+[ext_resource type="PackedScene" uid="uid://ccm35ko0cu32r" path="res://level_geometry/container.tscn" id="2_psroa"]
+[ext_resource type="Script" path="res://droplet_generator.gd" id="4_y4u82"]
+
+[sub_resource type="Environment" id="Environment_exfea"]
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Environment" id="Environment_hwphr"]
+ambient_light_source = 2
+ambient_light_color = Color(0.875, 0.875, 1, 1)
+ambient_light_energy = 0.5
+
+[sub_resource type="Gradient" id="Gradient_vamxd"]
+offsets = PackedFloat32Array(0, 0.333, 0.667, 1)
+colors = PackedColorArray(1, 0.168627, 0.168627, 1, 1, 0.815686, 0.0784314, 1, 0.643137, 1, 0.109804, 1, 0.141176, 0.886275, 1, 1)
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_lp3pp")
+
+[node name="DropletGenerator" type="Node3D" parent="."]
+script = ExtResource("4_y4u82")
+droplet_server_type = 1
+
+[node name="Container" parent="." instance=ExtResource("2_psroa")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
+environment = SubResource("Environment_exfea")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
+light_color = Color(1, 1, 0.875, 1)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_hwphr")
+
+[node name="LabelsBox" type="VBoxContainer" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 77.0
+
+[node name="ProcessFPS" type="Label" parent="LabelsBox"]
+layout_mode = 2
+
+[node name="PhysicsFPS" type="Label" parent="LabelsBox"]
+layout_mode = 2
+
+[node name="Droplets" type="Label" parent="LabelsBox"]
+layout_mode = 2
+
+[node name="Editor" type="VBoxContainer" parent="."]
+offset_left = 24.0
+offset_top = 58.0
+offset_right = 343.0
+offset_bottom = 227.0
+
+[node name="ParticlesNumberContainer" type="HBoxContainer" parent="Editor"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="Editor/ParticlesNumberContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "粒子数量："
+
+[node name="ParitclesNumberScale" type="HSlider" parent="Editor/ParticlesNumberContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 3.0
+min_value = 40.0
+max_value = 800.0
+step = 20.0
+value = 400.0
+
+[node name="Value" type="Label" parent="Editor/ParticlesNumberContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "400"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LimitFPSContainer" type="HBoxContainer" parent="Editor"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="Editor/LimitFPSContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "运行帧率："
+
+[node name="LimitFPSScale" type="HSlider" parent="Editor/LimitFPSContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 3.0
+max_value = 400.0
+step = 10.0
+
+[node name="Value" type="Label" parent="Editor/LimitFPSContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AlgorithmContainer" type="HBoxContainer" parent="Editor"]
+layout_mode = 2
+size_flags_stretch_ratio = 15.0
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="Editor/AlgorithmContainer"]
+layout_mode = 2
+text = "算法选择："
+vertical_alignment = 1
+
+[node name="AlgorithmSelect" type="OptionButton" parent="Editor/AlgorithmContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+selected = 0
+item_count = 3
+popup/item_0/text = "PBF"
+popup/item_1/text = "LBM"
+popup/item_1/id = 1
+popup/item_2/text = "MPM"
+popup/item_2/id = 2
+
+[node name="SceneContainer" type="HBoxContainer" parent="Editor"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="Editor/SceneContainer"]
+layout_mode = 2
+text = "场景选择："
+vertical_alignment = 1
+
+[node name="SceneSelecter" type="OptionButton" parent="Editor/SceneContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 1
+item_count = 2
+popup/item_0/text = "Scene1"
+popup/item_1/text = "Scene2"
+popup/item_1/id = 1
+
+[node name="FrameLabel" type="Label" parent="."]
+offset_left = 26.0
+offset_top = 21.0
+offset_right = 90.0
+offset_bottom = 53.0
+text = "FPS: 0"
+metadata/gradient = SubResource("Gradient_vamxd")
+
+[connection signal="value_changed" from="Editor/LimitFPSContainer/LimitFPSScale" to="." method="_on_limit_fps_scale_value_changed"]
+[connection signal="item_selected" from="Editor/AlgorithmContainer/AlgorithmSelect" to="." method="_on_algorithm_select_item_selected"]
+[connection signal="item_selected" from="Editor/SceneContainer/SceneSelecter" to="." method="_on_scene_selecter_item_selected"]
